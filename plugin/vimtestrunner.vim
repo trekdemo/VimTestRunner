@@ -45,7 +45,7 @@ let g:errorformats['ruby'] = '%A\ \ %n)%.%#,%C\ %#Failure/Error:\ %m,%C\ %#%*\\s
 " TODO: consider making these script local... would the user want to be able
 " to call them...?
 function! RunTestsForFile(args)
-  call RunTests(expand('%:r').'_spec.rb', a:args)
+  call RunTests(expand('%'), a:args)
 endfunction
 
 function! RunTests(target, args)
@@ -58,6 +58,10 @@ function! RunTests(target, args)
     let b:ft = &filetype
   endif
   let &errorformat = g:errorformats[b:ft]
+  echo 'VimTestRunner'
+  echo a:target
+  echo b:ft
+  echo a:args
   if len(a:target)
     execute 'set makeprg=' . g:makeprgs[b:ft.'_file']
   else
